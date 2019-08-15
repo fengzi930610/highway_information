@@ -17,26 +17,26 @@ class Ctl_Index extends Ctl
 	
 	//进行搜索页验证后方可进入
     public function index_verify(){
-		session_start();
-		$cfg = $this->system->config->get('index_verify');
-		if( $_SESSION['kw']===NULL){
+		// $cfg = $this->system->config->get('index_verify');
+		if( !k::M('cache/redis')->get('checkip') ){
 		    $link = $this->mklink('waimai/index');
 		    echo "今日验证已更新，请先进行验证,<a href='$link'>正在跳转</a>";
 		    header("refresh:3;url=".$link);die;
-		}else if( $_SESSION['kw']['index_verify']===1 && ((int)$cfg['index_verify']!==1 || $_SESSION['kw']['verifystr']!==date('Ymd')) ){
-		    $link = $this->mklink('waimai/index');
-		    echo "今日验证已更新，请先进行验证1,<a href='$link'>正在跳转</a>";
-		    header("refresh:3;url=".$link);die;
-		}else if($_SESSION['kw']['index_verify']===2 && ((int)$cfg['index_verify']!==2 || $_SESSION['kw']['verifystr']!=$cfg['verifystr']) ){
-		    $link = $this->mklink('waimai/index');
-		    echo "今日验证已更新，请先进行验证2,<a href='$link'>正在跳转</a>";
-		    header("refresh:3;url=".$link);die;
 		}
+		// else if( $_SESSION['kw']['index_verify']===1 && ((int)$cfg['index_verify']!==1 || $_SESSION['kw']['verifystr']!==date('Ymd')) ){
+		//     $link = $this->mklink('waimai/index');
+		//     echo "今日验证已更新，请先进行验证1,<a href='$link'>正在跳转</a>";
+		//     header("refresh:3;url=".$link);die;
+		// }else if($_SESSION['kw']['index_verify']===2 && ((int)$cfg['index_verify']!==2 || $_SESSION['kw']['verifystr']!=$cfg['verifystr']) ){
+		//     $link = $this->mklink('waimai/index');
+		//     echo "今日验证已更新，请先进行验证2,<a href='$link'>正在跳转</a>";
+		//     header("refresh:3;url=".$link);die;
+		// }
 	}
     //qqssc页面
     public function cqssc()
     {
-		session_start();
+		// session_start();
 		$this->index_verify();
         if( $this->checksubmit() ){//下注单信息提交
             $type = [1,10,100,1000,10000];//个位,十位,百位,千位,万位
@@ -119,7 +119,7 @@ class Ctl_Index extends Ctl
     
     //PK10页面
     public function bjpk(){
-		session_start();
+		// session_start();
         $this->index_verify();
         $this->pagedata['member'] = K::M('member/member')->detail($this->uid);//传递用户信息
         $this->tmpl = "bjpk10.html";
@@ -127,24 +127,24 @@ class Ctl_Index extends Ctl
     
     //gd11x5页面
     public function gd11x5(){
-		session_start();
+		// session_start();
         $this->index_verify();
         $this->pagedata['member'] = K::M('member/member')->detail($this->uid);//传递用户信息
         $this->tmpl = "gd11x5.html";
     }
 	
     public function jinjikg(){
-		session_start();
+		// session_start();
 		$this->index_verify();
         $this->tmpl = 'jinjikg.html';
     }
     
     public function index(){
-        session_start();
-        if( $_SESSION['kw']!==NULL){
-            $link = $this->mklink('waimai/index-cqssc');
-            header("refresh:3;url=".$link);die;
-        }
+        // session_start();
+        // if( $_SESSION['kw']!==NULL){
+        //     $link = $this->mklink('waimai/index-cqssc');
+        //     header("refresh:3;url=".$link);die;
+        // }
         $cfg = $this->system->config->get('index_verify');
         if( $this->checksubmit() ){
             if( !$kw=$this->GP('kw') ){//如果kw对得上
@@ -156,10 +156,11 @@ class Ctl_Index extends Ctl
                         break;
                     case 1://日期
                         if( $kw===date('Ymd') ){
-                            $_SESSION['kw'] = [
-                                'index_verify'=>1,
-                                'verifystr' =>$kw,
-                            ];
+							k::M('cache/redis')->set('checkip', __IP, 60*15 );
+                            // $_SESSION['kw'] = [
+                            //     'index_verify'=>1,
+                            //     'verifystr' =>$kw,
+                            // ];
                             $this->msgbox->add('验证成功')->response();
                         }else{
                             $this->msgbox->add('验证错误', 211)->response();
@@ -167,10 +168,12 @@ class Ctl_Index extends Ctl
                         break;
                     case 2://自定义字符
                         if( $kw===$cfg['verifystr']){
-                            $_SESSION['kw'] = [
-                                'index_verify'=>2,
-                                'verifystr' =>$kw,
-                            ];
+                            // $_SESSION['kw'] = [
+                            //     'index_verify'=>2,
+                            //     'verifystr' =>$kw,
+                            // ];
+							k::M('cache/redis')->set('checkip', __IP, 60*15 );
+							
                             $this->msgbox->add('验证成功')->response();
                         }else{
                             $this->msgbox->add('验证错误', 211)->response();
