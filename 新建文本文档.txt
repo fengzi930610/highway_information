@@ -1,0 +1,6 @@
+if (!-e $request_filename) {
+                rewrite ^/(admin|waimai)/(images|script|style|ui)/(.*)$ /$1/$2/$3 last;
+         rewrite ^/(admin|wmbiz)(.*)$ /$1/index.php$2 last;
+                rewrite ^/(attachs|static|themes)/(.*)$ /$1/$2 last;
+         rewrite ^/(.*)$ /index.php/$1 last;
+            }
