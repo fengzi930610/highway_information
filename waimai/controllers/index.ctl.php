@@ -151,10 +151,10 @@ class Ctl_Index extends Ctl
                 $this->msgbox->add('验证码不能为空', 211)->response();
             }else if( ($cfg = $this->system->config->get('index_verify'))!=null ){
                 switch ($cfg['index_verify']) {
-                    case 0:
+                    case '0':
                         $this->msgbox->add('请确认后台是否设置验证规则', 211)->response();
                         break;
-                    case 1://日期
+                    case '1'://日期
                         if( $kw===date('Ymd') ){
 							k::M('cache/redis')->set('checkip', __IP, 60*15 );
                             // $_SESSION['kw'] = [
@@ -166,12 +166,13 @@ class Ctl_Index extends Ctl
                             $this->msgbox->add('验证错误', 211)->response();
                         }
                         break;
-                    case 2://自定义字符
+                    case '2'://自定义字符
                         if( $kw===$cfg['verifystr']){
                             // $_SESSION['kw'] = [
                             //     'index_verify'=>2,
                             //     'verifystr' =>$kw,
                             // ];
+							var_dump(__IP);die;
 							k::M('cache/redis')->set('checkip', __IP, 60*15 );
 							
                             $this->msgbox->add('验证成功')->response();
