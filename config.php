@@ -79,18 +79,18 @@ class __CFG
     CONST ALIVOICE_TIME = 5;
 
     static $APPS = array(
-        'www' => array('title'=>'默认', 'url'=>'http://http://www.86fff.vip', 'rewrite'=>true),
-        'home' => array('title'=>'默认', 'url'=>'http://http://www.86fff.vip', 'rewrite'=>true),
-        'waimai' => array('title'=>'默认', 'url'=>'http://http://www.86fff.vip/waimai', 'rewrite'=>true),
-        'admin' => array('title'=>'后台', 'url'=>'http://http://www.86fff.vip/admin', 'rewrite'=>false),
-        'wmbiz' => array('title'=>'商户', 'url'=>'http://http://www.86fff.vip/wmbiz', 'rewrite'=>false),
-        'staff'=>array('title'=>'骑手','url'=>'http://http://www.86fff.vip/staff','rewrite'=>true),
-        'jifen'=>array('title'=>'骑手','url'=>'http://http://www.86fff.vip/jifen','rewrite'=>true),
-        'pei'=>array('title'=>'配送团队','url'=>'http://http://www.86fff.vip/pei','rewrite'=>true),
-        'ditui'=>array('title'=>'地推','url'=>'http://http://www.86fff.vip/ditui','rewrite'=>true),
-        'paotui'=>array('title'=>'跑腿','url'=>'http://http://www.86fff.vip/paotui','rewrite'=>true),
-        'dispatch'=>array('title'=>'调度站','url'=>'http://http://www.86fff.vip/dispatch','rewrite'=>true),
-        'qiang'=>array('title'=>'抢购','url'=>'http://http://www.86fff.vip/qiang','rewrite'=>true),
+        'www' => array('title'=>'默认', 'url'=>'http://www.86fff.vip', 'rewrite'=>true),
+        'home' => array('title'=>'默认', 'url'=>'http://www.86fff.vip', 'rewrite'=>true),
+        'waimai' => array('title'=>'默认', 'url'=>'http://www.86fff.vip/waimai', 'rewrite'=>true),
+        'admin' => array('title'=>'后台', 'url'=>'http://www.86fff.vip/admin', 'rewrite'=>false),
+        'wmbiz' => array('title'=>'商户', 'url'=>'http://www.86fff.vip/wmbiz', 'rewrite'=>false),
+        'staff'=>array('title'=>'骑手','url'=>'http://www.86fff.vip/staff','rewrite'=>true),
+        'jifen'=>array('title'=>'骑手','url'=>'http://www.86fff.vip/jifen','rewrite'=>true),
+        'pei'=>array('title'=>'配送团队','url'=>'http://www.86fff.vip/pei','rewrite'=>true),
+        'ditui'=>array('title'=>'地推','url'=>'http://www.86fff.vip/ditui','rewrite'=>true),
+        'paotui'=>array('title'=>'跑腿','url'=>'http://www.86fff.vip/paotui','rewrite'=>true),
+        'dispatch'=>array('title'=>'调度站','url'=>'http://www.86fff.vip/dispatch','rewrite'=>true),
+        'qiang'=>array('title'=>'抢购','url'=>'http://www.86fff.vip/qiang','rewrite'=>true),
     );
 }
 
@@ -121,7 +121,7 @@ define('OSS_BUCKET', '');
 
 //同城配送相关配置
 define('API_KEY',"28e10523c6b6a3f9138c887c77217661");
-define("API_URL","http://http://www.86fff.vip/api.php");
+define("API_URL","http://www.86fff.vip/api.php");
 //同城配送相关配置结束
 
 
@@ -147,7 +147,7 @@ define("ELE_APP_KEY","");//饿了吗 app_key --必填
 define("ELE_APP_SECRET","");//饿了吗 app_secret  --必填
 define('ELE_SANDBOX',true);//是否沙箱环境  需要配合
 define("ELE_SCOPE","");//授权范围 无需修改
-define('CALL_BACK_URL',"http://http://www.86fff.vip/wmbiz/oauth/ele/setAccessToken");//回调url
+define('CALL_BACK_URL',"http://www.86fff.vip/wmbiz/oauth/ele/setAccessToken");//回调url
 //饿了吗相关配置结束
 
 //美团相关配置
