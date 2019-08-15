@@ -36,8 +36,8 @@ class Ctl_Index extends Ctl
     //qqssc页面
     public function cqssc()
     {
+		session_start();
 		$this->index_verify();
-        session_start();
         if( $this->checksubmit() ){//下注单信息提交
             $type = [1,10,100,1000,10000];//个位,十位,百位,千位,万位
             if( $this->uid ){//用户已登录
