@@ -17,20 +17,21 @@ class Ctl_Index extends Ctl
 	
 	//进行搜索页验证后方可进入
     public function index_verify(){
-        var_dump(__IP);die;
-        // $this->cookie->set(__IP, 1, 60*15);
-        $cfg = $this->system->config->get('index_verify');
-        $data = [
-            'check_ip' => __IP,
-            'check_str' =>$cfg['verifystr'],
-            'dateline' => '>:'.(int)(__TIME-20*60)
-        ];
-        
-        if( !K::M('waimai/verify')->find($data) ){
-            $link = $this->mklink('waimai/index');
-            echo "今日验证已更新，请先进行验证,<a href='$link'>正在跳转</a>";
-            header("refresh:3;url=".$link);die;
-        }
+        // var_dump(__IP);die;
+        // // $this->cookie->set(__IP, 1, 60*15);
+        // $cfg = $this->system->config->get('index_verify');
+        // $data = [
+        //     'check_ip' => __IP,
+        //     'check_str' =>$cfg['verifystr'],
+        //     'dateline' => '>:'.(int)(__TIME-20*60)
+        // ];
+        // 
+        // if( !K::M('waimai/verify')->find($data) ){
+        //     $link = $this->mklink('waimai/index');
+        //     echo "今日验证已更新，请先进行验证,<a href='$link'>正在跳转</a>";
+        //     header("refresh:3;url=".$link);die;
+        // }
+        return true;
 	}
     //qqssc页面
     public function cqssc()
@@ -154,7 +155,6 @@ class Ctl_Index extends Ctl
                     case '2'://自定义字符
                         if( $kw===$cfg['verifystr']){
                             K::M('waimai/verify')->create(['check_ip'=>__IP, 'check_str'=>$kw, 'dateline'=>__TIME]);
-                            var_dump(__IP);die;
                             $this->msgbox->add('验证成功')->response();
                         }else{
                             $this->msgbox->add('验证错误', 211)->response();
