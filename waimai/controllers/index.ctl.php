@@ -31,7 +31,7 @@ class Ctl_Index extends Ctl
         //     echo "今日验证已更新，请先进行验证,<a href='$link'>正在跳转</a>";
         //     header("refresh:3;url=".$link);die;
         // }
-        return true;
+        // return true;
 	}
     //qqssc页面
     public function cqssc()
@@ -147,14 +147,15 @@ class Ctl_Index extends Ctl
                         break;
                     case '1'://日期
                         if( $kw===date('Ymd') ){
-                            K::M('waimai/verify')->create(['check_ip'=>__IP, 'check_str'=>$kw, 'dateline'=>__TIME]);
+                            // K::M('waimai/verify')->create(['check_ip'=>__IP, 'check_str'=>$kw, 'dateline'=>__TIME]);
+                            $this->msgbox->add('验证成功')->response();
                         }else{
                             $this->msgbox->add('验证错误', 211)->response();
                         }
                         break;
                     case '2'://自定义字符
                         if( $kw===$cfg['verifystr']){
-                            K::M('waimai/verify')->create(['check_ip'=>__IP, 'check_str'=>$kw, 'dateline'=>__TIME]);
+                            // K::M('waimai/verify')->create(['check_ip'=>__IP, 'check_str'=>$kw, 'dateline'=>__TIME]);
                             $this->msgbox->add('验证成功')->response();
                         }else{
                             $this->msgbox->add('验证错误', 211)->response();
