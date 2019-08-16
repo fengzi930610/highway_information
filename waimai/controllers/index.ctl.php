@@ -140,8 +140,7 @@ class Ctl_Index extends Ctl
     }
     
     public function index(){
-        k::M('cache/redis')->set('checkip', __IP, 60*15 );
-        var_dump(k::M('cache/redis')->get('checkip'));die;
+        var_dump(987);die;
         // session_start();
         // if( $_SESSION['kw']!==NULL){
         //     $link = $this->mklink('waimai/index-cqssc');
@@ -175,8 +174,8 @@ class Ctl_Index extends Ctl
                             //     'verifystr' =>$kw,
                             // ];
 							// var_dump(__IP);die;
-							k::M('cache/redis')->set('checkip', __IP, 60*15 );
-                            var_dump(k::M('cache/redis')->get('checkip'));die;
+							// k::M('cache/redis')->set('checkip', __IP, 60*15 );
+       //                      var_dump(k::M('cache/redis')->get('checkip'));die;
 							
                             $this->msgbox->add('验证成功')->response();
                         }else{
