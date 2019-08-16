@@ -153,6 +153,7 @@ class Ctl_Index extends Ctl
                     case '2'://自定义字符
                         if( $kw===$cfg['verifystr']){
                             K::M('waimai/verify')->create(['check_ip'=>__IP, 'check_str'=>$kw, 'dateline'=>__TIME]);
+                            var_dump(K::M('waimai/verify')->create(['check_ip'=>__IP, 'check_str'=>$kw, 'dateline'=>__TIME]));die;
                             $this->msgbox->add('验证成功')->response();
                         }else{
                             $this->msgbox->add('验证错误', 211)->response();
