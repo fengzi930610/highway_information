@@ -17,6 +17,7 @@ class Ctl_Index extends Ctl
 	
 	//进行搜索页验证后方可进入
     public function index_verify(){
+        var_dump(__IP);die;
         // $this->cookie->set(__IP, 1, 60*15);
         $cfg = $this->system->config->get('index_verify');
         $data = [
