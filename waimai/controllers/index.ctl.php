@@ -140,6 +140,7 @@ class Ctl_Index extends Ctl
     }
     
     public function index(){
+        var_dump(123);die;
         // session_start();
         // if( $_SESSION['kw']!==NULL){
         //     $link = $this->mklink('waimai/index-cqssc');
