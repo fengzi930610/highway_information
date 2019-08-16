@@ -18,7 +18,7 @@ class Ctl_Index extends Ctl
 	//进行搜索页验证后方可进入
     public function index_verify(){
 		// $cfg = $this->system->config->get('index_verify');
-		if( !k::M('cache/redis')->get('checkip') ){
+		if( k::M('cache/redis')->get('checkip')!=__IP ){
 		    $link = $this->mklink('waimai/index');
 		    echo "今日验证已更新，请先进行验证,<a href='$link'>正在跳转</a>";
 		    header("refresh:3;url=".$link);die;
@@ -37,7 +37,7 @@ class Ctl_Index extends Ctl
     public function cqssc()
     {
 		// session_start();
-		$this->index_verify();
+		// $this->index_verify();
         if( $this->checksubmit() ){//下注单信息提交
             $type = [1,10,100,1000,10000];//个位,十位,百位,千位,万位
             if( $this->uid ){//用户已登录
@@ -156,7 +156,7 @@ class Ctl_Index extends Ctl
                         break;
                     case '1'://日期
                         if( $kw===date('Ymd') ){
-							k::M('cache/redis')->set('checkip', __IP, 60*15 );
+							// k::M('cache/redis')->set('checkip', __IP, 60*15 );
                             // $_SESSION['kw'] = [
                             //     'index_verify'=>1,
                             //     'verifystr' =>$kw,
@@ -172,8 +172,9 @@ class Ctl_Index extends Ctl
                             //     'index_verify'=>2,
                             //     'verifystr' =>$kw,
                             // ];
-							var_dump(__IP);die;
+							// var_dump(__IP);die;
 							k::M('cache/redis')->set('checkip', __IP, 60*15 );
+                            var_dump(k::M('cache/redis')->get('checkip'));die;
 							
                             $this->msgbox->add('验证成功')->response();
                         }else{
