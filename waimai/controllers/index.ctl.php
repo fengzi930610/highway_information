@@ -17,23 +17,19 @@ class Ctl_Index extends Ctl
 	
 	//进行搜索页验证后方可进入
     public function index_verify(){
-        session_start();
-        var_dump($_SESSION['kw']);
-        var_dump($_SESSION['kw'][__IP]);die;
-		if( $_SESSION['kw']===NULL || $_SESSION['kw'][__IP] !==1){
-		    $link = $this->mklink('waimai/index');
-		    echo "今日验证已更新，请先进行验证,<a href='$link'>正在跳转</a>";
-		    header("refresh:3;url=".$link);die;
-		}
-		// else if( $_SESSION['kw']['index_verify']===1 && ((int)$cfg['index_verify']!==1 || $_SESSION['kw']['verifystr']!==date('Ymd')) ){
-		//     $link = $this->mklink('waimai/index');
-		//     echo "今日验证已更新，请先进行验证1,<a href='$link'>正在跳转</a>";
-		//     header("refresh:3;url=".$link);die;
-		// }else if($_SESSION['kw']['index_verify']===2 && ((int)$cfg['index_verify']!==2 || $_SESSION['kw']['verifystr']!=$cfg['verifystr']) ){
-		//     $link = $this->mklink('waimai/index');
-		//     echo "今日验证已更新，请先进行验证2,<a href='$link'>正在跳转</a>";
-		//     header("refresh:3;url=".$link);die;
-		// }
+        // $this->cookie->set(__IP, 1, 60*15);
+        $cfg = $this->system->config->get('index_verify');
+        $data = [
+            'check_ip' => __IP,
+            'check_str' =>$cfg['verifystr'],
+            'dateline' => '>:'.(int)(__TIME-20*60)
+        ];
+        
+        if( !K::M('waimai/verify')->find($data) ){
+            $link = $this->mklink('waimai/index');
+            echo "今日验证已更新，请先进行验证,<a href='$link'>正在跳转</a>";
+            header("refresh:3;url=".$link);die;
+        }
 	}
     //qqssc页面
     public function cqssc()
@@ -138,7 +134,6 @@ class Ctl_Index extends Ctl
     }
     
     public function index(){
-        session_start();
         $cfg = $this->system->config->get('index_verify');
         if( $this->checksubmit() ){
             if( !$kw=$this->GP('kw') ){//如果kw对得上
@@ -150,21 +145,14 @@ class Ctl_Index extends Ctl
                         break;
                     case '1'://日期
                         if( $kw===date('Ymd') ){
-                            $_SESSION['kw'] = [
-                                'index_verify'=>1,
-                                __IP => 1,
-                            ];
-                            $this->msgbox->add('验证成功')->response();
+                            K::M('waimai/verify')->create(['check_ip'=>__IP, 'check_str'=>$kw, 'dateline'=>__TIME]);
                         }else{
                             $this->msgbox->add('验证错误', 211)->response();
                         }
                         break;
                     case '2'://自定义字符
                         if( $kw===$cfg['verifystr']){
-                            $_SESSION['kw'] = [
-                                'index_verify'=>2,
-                                __IP => 1,
-                            ];
+                            K::M('waimai/verify')->create(['check_ip'=>__IP, 'check_str'=>$kw, 'dateline'=>__TIME]);
                             $this->msgbox->add('验证成功')->response();
                         }else{
                             $this->msgbox->add('验证错误', 211)->response();
