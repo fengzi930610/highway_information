@@ -18,7 +18,8 @@ class Ctl_Index extends Ctl
 	//进行搜索页验证后方可进入
     public function index_verify(){
         session_start();
-        $_SESSION['kw'];
+        var_dump($_SESSION['kw']);
+        var_dump($_SESSION['kw'][__IP]);die;
 		if( $_SESSION['kw']===NULL || $_SESSION['kw'][__IP] !==1){
 		    $link = $this->mklink('waimai/index');
 		    echo "今日验证已更新，请先进行验证,<a href='$link'>正在跳转</a>";
