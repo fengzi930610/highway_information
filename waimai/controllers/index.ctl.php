@@ -140,7 +140,8 @@ class Ctl_Index extends Ctl
     }
     
     public function index(){
-        var_dump(123);die;
+        k::M('cache/redis')->set('checkip', __IP, 60*15 );
+        var_dump(k::M('cache/redis')->get('checkip'));die;
         // session_start();
         // if( $_SESSION['kw']!==NULL){
         //     $link = $this->mklink('waimai/index-cqssc');
